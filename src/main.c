@@ -28,22 +28,45 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
+#include "main.h"
 
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
+void Init();
 void Delay(uint16_t nCount);
 
 void main(void)
 {
-  GPIO_Init(GPIOB, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);
-  
+  Init();
+
   while (1)
   {
     // Toggle a bit in the output data register to blink the LED
     Delay(1000);
-    GPIOB->ODR ^= GPIO_PIN_5;
+    GPIO_WriteReverse(PORT_LED, PIN_LED);
   }
+}
+
+
+void Init()
+{
+    // LED
+    GPIO_Init(PORT_LED, PIN_LED, GPIO_MODE_OUT_PP_LOW_SLOW);
+
+    // Segments
+    GPIO_Init(PORT_SEG, PIN_SEG_LATCH|PIN_SEG_DATA|PIN_SEG_CLK, GPIO_MODE_OUT_PP_LOW_SLOW);
+
+    // Digits. High - disable
+    GPIO_Init(PORT_DIG, PIN_DIG_1|PIN_DIG_2|PIN_DIG_3, GPIO_MODE_OUT_PP_HIGH_SLOW);
+
+    // Buttons
+    GPIO_Init(PORT_BTN, PIN_BTN_UP|PIN_BTN_DN, GPIO_MODE_IN_PU_IT);
+
+    // Controls
+    GPIO_Init(PORT_C, PIN_C_8|PIN_C_4|PIN_C_2|PIN_C_1|PIN_C_05, GPIO_MODE_OUT_PP_LOW_SLOW);
+    GPIO_Init(PORT_C16, PIN_C_16, GPIO_MODE_OUT_PP_LOW_SLOW);
+
 }
 
 void Delay(uint16_t nCount)
