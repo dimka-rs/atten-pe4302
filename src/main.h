@@ -29,4 +29,17 @@
 #define PORT_LED GPIOB
 #define PIN_LED GPIO_PIN_5
 
+/* 7 seg digits */
+#define SEG_A 0x01
+#define SEG_B 0x02
+#define SEG_C 0x04
+#define SEG_D 0x08
+#define SEG_E 0x10
+#define SEG_F 0x20
+#define SEG_G 0x40
+#define SEG_H 0x80
+
+#define DIGIT_ON_MS 3
+#define DIGIT_OFF_MS 5
+
 #endif

@@ -43,7 +43,7 @@ PRJ_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(PRJ_SOURCE:.c=.rel))
 SPL_SRC_DIR = ./STM8S_StdPeriph_Driver/src
 SPL_INC_DIR = ./STM8S_StdPeriph_Driver/inc
 # add all library sources used here
-SPL_SOURCE  = stm8s_gpio.c
+SPL_SOURCE  = stm8s_gpio.c stm8s_tim4.c
 SPL_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(SPL_SOURCE:.c=.rel))
 
 # collect all include folders
@@ -52,7 +52,7 @@ INCLUDE = -I$(PRJ_SRC_DIR) -I$(SPL_INC_DIR)
 # collect all source directories
 VPATH=$(PRJ_SRC_DIR):$(SPL_SRC_DIR)
 
-.PHONY: clean
+.PHONY: clean flash
 
 all: $(TARGET)
 
