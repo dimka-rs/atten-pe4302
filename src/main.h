@@ -40,6 +40,6 @@
 #define SEG_H 0x80
 
 #define DIGIT_ON_MS 3
-#define DIGIT_OFF_MS 5
+#define DIGIT_OFF_MS 3
 
 #endif
