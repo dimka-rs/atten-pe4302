@@ -50,7 +50,8 @@ SEG_A|SEG_C|SEG_D|SEG_F|SEG_G,
 SEG_A|SEG_C|SEG_D|SEG_E|SEG_F|SEG_G,
 SEG_A|SEG_B|SEG_C,
 SEG_A|SEG_B|SEG_C|SEG_D|SEG_E|SEG_F|SEG_G,
-SEG_A|SEG_B|SEG_C|SEG_D|SEG_F|SEG_G
+SEG_A|SEG_B|SEG_C|SEG_D|SEG_F|SEG_G,
+0
 };
 
 
@@ -99,6 +100,16 @@ void main(void)
             }
             Display[1] = (atten / 2) % 10;
             Display[0] = (atten / 2) / 10;
+            // dim lead zero
+            if(Display[0] == 0) Display[0] = 10;
+            //C05 is PC3, so shit left 3 bits
+            GPIO_Write(PORT_C, atten << 3);
+            // 31 is doubled 15.5 db
+            if(atten > 31) {
+                GPIO_WriteHigh(PORT_C16, PIN_C_16);
+            } else {
+                GPIO_WriteLow(PORT_C16, PIN_C_16);
+            }
         }
     }
 }
